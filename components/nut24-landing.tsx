@@ -238,7 +238,7 @@ export function Nut24Landing() {
       {/* ===== HERO SECTION ===== */}
       <section
         className={cn(
-          "relative bg-foreground px-6 pb-24 pt-20 sm:px-10 lg:px-16",
+          "relative bg-primary px-6 pb-24 pt-20 sm:px-10 lg:px-16",
           revealMotion,
           "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
         )}
@@ -247,7 +247,7 @@ export function Nut24Landing() {
           {/* Top bar */}
           <div className="flex items-center justify-between">
             <Badge
-              className="w-fit border-2 border-primary/40 bg-primary px-3 py-1 text-xs uppercase tracking-[0.2em] text-primary-foreground"
+              className="w-fit border-2 border-foreground bg-primary px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground"
               variant="secondary"
             >
               NUT-24 / HTTP 402 + Cashu
@@ -266,26 +266,28 @@ export function Nut24Landing() {
             />
             <h1
               className={cn(
-                "text-5xl leading-tight font-bold sm:text-7xl text-background",
+                "text-5xl leading-tight font-bold sm:text-7xl",
                 revealMotion,
                 "motion-safe:animate-in motion-safe:fade-in"
               )}
             >
-              <span className="font-bold">402</span>{" "}
-              <span className="font-dummies text-primary">for dummies</span>
+              <span className="dummies-highlight">
+                <span className="font-bold">402</span>{" "}
+                <span className="font-dummies">for dummies</span>
+              </span>
             </h1>
           </div>
 
           <p
             className={cn(
-              "max-w-2xl text-base leading-relaxed sm:text-lg text-background/70",
+              "max-w-2xl text-base leading-relaxed sm:text-lg text-foreground",
               revealMotion,
               "motion-safe:animate-in motion-safe:fade-in"
             )}
           >
             Everything you need to master HTTP 402 micropayments without the headaches.
-            Your server responds with a standard <code className="text-primary font-bold">402 Payment Required</code>,
-            the client decodes the payment request, retries with <code className="text-primary font-bold">cashuB</code>,
+            Your server responds with a standard <code className="bg-foreground text-primary px-1 rounded font-bold">402 Payment Required</code>,
+            the client decodes the payment request, retries with <code className="bg-foreground text-primary px-1 rounded font-bold">cashuB</code>,
             and unlocks access after validation.
           </p>
 
@@ -299,15 +301,14 @@ export function Nut24Landing() {
             <Button
               asChild
               size="lg"
-              className="h-auto rounded-md border-2 border-primary bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_oklch(0.87_0.19_95/30%)] hover:bg-primary/90"
+              className="h-auto rounded-md border-2 border-foreground bg-primary px-6 py-3 text-sm font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-primary/90"
             >
               <Link href="/tldr">Give me the TL;DR</Link>
             </Button>
             <Button
               asChild
-              variant="outline"
               size="lg"
-              className="h-auto rounded-md border-2 border-background bg-transparent px-6 py-3 text-sm font-bold text-background shadow-[4px_4px_0_oklch(1_0_0/15%)] hover:bg-background/10"
+              className="h-auto rounded-md border-2 border-foreground bg-white px-6 py-3 text-sm font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-white/90"
             >
               <a href="#demo">
                 Try Interactive Demo
@@ -326,14 +327,14 @@ export function Nut24Landing() {
               <Card
                 key={label}
                 className={cn(
-                  "border-primary/30 bg-card",
+                  "border-foreground/30 bg-foreground",
                   revealMotion,
                   "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
                 )}
               >
                 <CardHeader>
                   <CardTitle className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{label}</CardTitle>
-                  <CardDescription>{text}</CardDescription>
+                  <CardDescription className="text-background/80">{text}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
@@ -342,7 +343,7 @@ export function Nut24Landing() {
       </section>
 
       {/* ===== ANGLED SEPARATOR (hero → flow) ===== */}
-      <div className="h-6 bg-foreground dummies-separator-bottom" />
+      <div className="h-6 bg-primary dummies-separator-bottom" />
 
       {/* ===== FLOW SECTION ===== */}
       <section className="px-6 py-24 sm:px-10 lg:px-16">

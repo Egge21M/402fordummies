@@ -152,4 +152,13 @@
     border-right: 12px solid transparent;
     border-top: 12px solid var(--border);
   }
+
+  .dummies-highlight {
+    background: var(--foreground) !important;
+    color: var(--primary) !important;
+    padding: 0.1em 0.25em;
+    border-radius: 2px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
 }
