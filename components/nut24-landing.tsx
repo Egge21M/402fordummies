@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -235,30 +236,19 @@ export function Nut24Landing() {
 
   return (
     <main className="relative overflow-x-hidden">
+      {/* ===== HERO SECTION ===== */}
       <section
         className={cn(
-          "relative border-b px-6 pb-20 pt-24 sm:px-10 lg:px-16",
+          "relative border-b-[3px] border-border bg-primary px-6 pb-24 pt-24 sm:px-10 lg:px-16",
           revealMotion,
           "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
         )}
-        style={{
-          backgroundImage:
-            "linear-gradient(color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
       >
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 20% 18%, color-mix(in oklab, var(--primary) 16%, transparent), transparent 34%), radial-gradient(circle at 78% 22%, color-mix(in oklab, var(--accent) 36%, transparent), transparent 30%)",
-          }}
-        />
-
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
+          {/* Top bar */}
           <div className="flex items-center justify-between">
             <Badge
-              className="w-fit rounded-none border border-border bg-card px-3 py-1 text-[10px] uppercase tracking-[0.2em]"
+              className="w-fit border-[2px] border-foreground bg-card px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-foreground"
               variant="secondary"
             >
               NUT-24 / HTTP 402 + Cashu
@@ -266,45 +256,72 @@ export function Nut24Landing() {
             <ModeToggle />
           </div>
 
-          <h1
-            className={cn(
-              "max-w-4xl text-4xl leading-tight font-semibold text-balance sm:text-6xl",
-              revealMotion,
-              "motion-safe:animate-in motion-safe:fade-in"
-            )}
-          >
-            Stop hard-coding paywalls.
-            <span className="text-primary"> Ship HTTP-native micropayments.</span>
-          </h1>
-          <p
-            className={cn(
-              "text-muted-foreground max-w-2xl text-sm leading-relaxed sm:text-base",
-              revealMotion,
-              "motion-safe:animate-in motion-safe:fade-in"
-            )}
-          >
-            402forDummies is a practical entry point to the NUT-24 flow. Your server responds with
-            a standard <code>402 Payment Required</code>, the client decodes the payment request, retries
-            with <code>cashuB</code>, and unlocks access after validation.
-          </p>
-          <div
-            className={cn(
-              "flex flex-wrap items-center gap-3",
-              revealMotion,
-              "motion-safe:animate-in motion-safe:fade-in"
-            )}
-          >
-            <Button asChild size="lg" className="rounded-none">
-              <Link href="/tldr">Give me the TL;DR</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="rounded-none">
-              <a href="#demo">
-                Try Interactive Demo
-                <ArrowRight data-icon="inline-end" />
-              </a>
-            </Button>
+          {/* Black panel with logo + headline */}
+          <div className="relative rounded-xl bg-foreground p-8 shadow-[8px_8px_0_oklch(0.87_0.19_95/40%)] sm:p-12 sm:-rotate-1">
+            <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+              <Image
+                src="/for-dummies-logo.png"
+                alt="For Dummies logo"
+                width={100}
+                height={100}
+                className="shrink-0 w-20 h-20 sm:w-24 sm:h-24"
+                priority
+              />
+              <h1
+                className={cn(
+                  "text-5xl leading-tight font-bold sm:text-7xl text-background",
+                  revealMotion,
+                  "motion-safe:animate-in motion-safe:fade-in"
+                )}
+              >
+                <span className="font-bold">402</span>{" "}
+                <span className="font-dummies text-primary">for dummies</span>
+              </h1>
+            </div>
+
+            <p
+              className={cn(
+                "mt-6 max-w-2xl text-sm leading-relaxed sm:text-base text-background/75",
+                revealMotion,
+                "motion-safe:animate-in motion-safe:fade-in"
+              )}
+            >
+              Everything you need to master HTTP 402 micropayments without the headaches.
+              Your server responds with a standard <code className="text-primary font-bold">402 Payment Required</code>,
+              the client decodes the payment request, retries with <code className="text-primary font-bold">cashuB</code>,
+              and unlocks access after validation.
+            </p>
+
+            <div
+              className={cn(
+                "mt-8 flex flex-wrap items-center gap-4",
+                revealMotion,
+                "motion-safe:animate-in motion-safe:fade-in"
+              )}
+            >
+              <Button
+                asChild
+                size="lg"
+                className="h-auto rounded-lg border-[3px] border-background bg-primary px-6 py-3 text-sm font-bold text-primary-foreground shadow-[4px_4px_0_oklch(1_0_0/30%)] hover:bg-primary/90"
+              >
+                <Link href="/tldr">Give me the TL;DR</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="h-auto rounded-lg border-[3px] border-background bg-transparent px-6 py-3 text-sm font-bold text-background shadow-[4px_4px_0_oklch(1_0_0/20%)] hover:bg-background/10"
+              >
+                <a href="#demo">
+                  Try Interactive Demo
+                  <ArrowRight data-icon="inline-end" />
+                </a>
+              </Button>
+            </div>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+
+          {/* NUT cards */}
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
             {[
               ["NUT-24", "HTTP 402 payment negotiation"],
               ["NUT-18", "Encoded request structure"],
@@ -313,13 +330,13 @@ export function Nut24Landing() {
               <Card
                 key={label}
                 className={cn(
-                  "border-border/80 bg-card/70 backdrop-blur-xs",
+                  "border-foreground bg-card",
                   revealMotion,
                   "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
                 )}
               >
                 <CardHeader>
-                  <CardTitle className="text-[11px] uppercase tracking-[0.16em]">{label}</CardTitle>
+                  <CardTitle className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{label}</CardTitle>
                   <CardDescription>{text}</CardDescription>
                 </CardHeader>
               </Card>
@@ -328,20 +345,24 @@ export function Nut24Landing() {
         </div>
       </section>
 
-      <section className="px-6 py-20 sm:px-10 lg:px-16">
+      {/* ===== ANGLED SEPARATOR ===== */}
+      <div className="h-6 bg-primary dummies-separator-bottom" />
+
+      {/* ===== FLOW SECTION ===== */}
+      <section className="px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <h2 className="text-3xl font-semibold sm:text-4xl">Flow that falls into place</h2>
+              <h2 className="text-3xl font-bold sm:text-5xl">Flow that falls into place</h2>
               <p className="text-muted-foreground mt-2 max-w-2xl text-sm sm:text-base">
                 Scroll through the request/response lifecycle used by NUT-24.
               </p>
             </div>
             <div className="hidden items-center gap-2 sm:flex">
-              <Badge variant="outline" className="rounded-none">
+              <Badge variant="outline">
                 5-step handshake
               </Badge>
-              <Button asChild variant="secondary" className="rounded-none">
+              <Button asChild variant="secondary">
                 <a href="https://github.com/cashubtc/nuts/blob/main/24.md" target="_blank" rel="noreferrer">
                   Read NUT-24 Spec
                 </a>
@@ -351,53 +372,65 @@ export function Nut24Landing() {
 
           <div className="grid gap-5">
             {flowSteps.map((step, index) => (
-              <Card
-                key={step.title}
-                data-flow-step
-                data-step-index={index}
-                data-visible={revealed.includes(index)}
-                className={cn(
-                  "border-border/80 bg-gradient-to-r from-card to-secondary/20 opacity-0 translate-y-8 scale-[0.985]",
-                  revealMotion,
-                  "data-[visible=true]:opacity-100 data-[visible=true]:translate-y-0 data-[visible=true]:scale-100"
+              <div key={step.title}>
+                <Card
+                  data-flow-step
+                  data-step-index={index}
+                  data-visible={revealed.includes(index)}
+                  className={cn(
+                    "bg-gradient-to-r from-card to-primary/5 opacity-0 translate-y-8 scale-[0.985]",
+                    revealMotion,
+                    "data-[visible=true]:opacity-100 data-[visible=true]:translate-y-0 data-[visible=true]:scale-100"
+                  )}
+                  style={{ transitionDelay: `${index * 110}ms` }}
+                >
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.08em]">
+                      <span className="inline-flex size-8 items-center justify-center rounded-full border-[2px] border-foreground bg-primary text-xs font-bold text-primary-foreground">
+                        {index + 1}
+                      </span>
+                      {step.title}
+                    </CardTitle>
+                    <CardDescription>{step.detail}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <pre className="bg-foreground/5 overflow-x-auto rounded-lg border-2 border-border p-4 font-mono text-[11px] leading-relaxed">
+                      {step.packet}
+                    </pre>
+                  </CardContent>
+                </Card>
+                {/* Speech bubble tip after step 2 */}
+                {index === 1 && (
+                  <div className="dummies-speech-bubble ml-10 mt-4 text-sm">
+                    <strong>What is HTTP 402?</strong> It&apos;s a status code reserved for &quot;Payment Required&quot; &mdash; and NUT-24 finally gives it a real purpose!
+                  </div>
                 )}
-                style={{ transitionDelay: `${index * 110}ms` }}
-              >
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-sm uppercase tracking-[0.08em]">
-                    <span className="inline-flex size-6 items-center justify-center border border-border text-[10px]">
-                      {index + 1}
-                    </span>
-                    {step.title}
-                  </CardTitle>
-                  <CardDescription>{step.detail}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <pre className="bg-background/80 overflow-x-auto border p-4 font-mono text-[11px] leading-relaxed">
-                    {step.packet}
-                  </pre>
-                </CardContent>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="demo" className="border-t px-6 py-20 sm:px-10 lg:px-16">
+      {/* ===== ANGLED SEPARATOR ===== */}
+      <div className="h-6 bg-primary dummies-separator-top" />
+
+      {/* ===== DEMO SECTION ===== */}
+      <section id="demo" className="bg-primary/5 px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h2 className="text-2xl font-semibold sm:text-3xl">Interactive multi-step demo</h2>
+              <h2 className="text-2xl font-bold sm:text-4xl">Interactive multi-step demo</h2>
               <p className="text-muted-foreground mt-2 text-sm">
                 Walk through the actual lifecycle: 402 header issuance, client-side decode, retry with
                 payment token, and final server validation.
               </p>
             </div>
-            <Badge variant="secondary" className="rounded-none border">
+            <Badge variant="secondary" className="border-[2px] border-border">
               Current step: {activeStepLabel}
             </Badge>
           </div>
 
+          {/* Demo phase indicators */}
           <div className="grid gap-2 sm:grid-cols-5">
             {demoPhases.map((phase, index) => {
               const complete = index < demoStep;
@@ -406,24 +439,25 @@ export function Nut24Landing() {
                 <div
                   key={phase}
                   className={cn(
-                    "border p-3",
+                    "rounded-lg border-[3px] border-border p-3",
                     revealMotion,
-                    complete && "border-emerald-500/40 bg-emerald-500/5",
-                    active && "border-primary/40 bg-primary/5"
+                    complete && "border-emerald-600 bg-emerald-500/10",
+                    active && "border-primary bg-primary/15"
                   )}
                 >
                   <p className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">Step {index + 1}</p>
-                  <p className="mt-1 text-xs font-medium leading-relaxed">{phase}</p>
+                  <p className="mt-1 text-xs font-bold leading-relaxed">{phase}</p>
                 </div>
               );
             })}
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-            <Card className={cn("border-border/80", revealMotion)}>
+            {/* Client Controls */}
+            <Card className={cn(revealMotion)}>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base uppercase tracking-[0.08em]">
-                  <Sparkles className="size-4" />
+                <CardTitle className="flex items-center gap-2 text-base font-bold uppercase tracking-[0.08em]">
+                  <Sparkles className="size-4 text-primary" />
                   Client Controls
                 </CardTitle>
                 <CardDescription>Configure the client token before running validation.</CardDescription>
@@ -442,7 +476,7 @@ export function Nut24Landing() {
                   <div className="space-y-2">
                     <Label htmlFor="unit">Unit</Label>
                     <Select value={unit} onValueChange={setUnit}>
-                      <SelectTrigger id="unit" className="w-full rounded-none">
+                      <SelectTrigger id="unit" className="w-full">
                         <SelectValue placeholder="Select unit" />
                       </SelectTrigger>
                       <SelectContent>
@@ -457,7 +491,7 @@ export function Nut24Landing() {
                 <div className="space-y-2">
                   <Label htmlFor="mint">Mint URL</Label>
                   <Select value={mint} onValueChange={setMint}>
-                    <SelectTrigger id="mint" className="w-full rounded-none">
+                    <SelectTrigger id="mint" className="w-full">
                       <SelectValue placeholder="Select mint" />
                     </SelectTrigger>
                     <SelectContent>
@@ -471,20 +505,26 @@ export function Nut24Landing() {
                   </Select>
                 </div>
 
-                <label className="flex items-center gap-3 border p-3 text-xs">
-                  <input
-                    type="checkbox"
-                    checked={lockConditionSatisfied}
-                    onChange={(event) => setLockConditionSatisfied(event.target.checked)}
-                    className="accent-primary size-3"
-                  />
-                  Include proof for required NUT-10 lock condition
-                </label>
+                <div className="dummies-tip text-xs">
+                  <label className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={lockConditionSatisfied}
+                      onChange={(event) => setLockConditionSatisfied(event.target.checked)}
+                      className="accent-primary size-3.5"
+                    />
+                    Include proof for required NUT-10 lock condition
+                  </label>
+                </div>
 
                 <Separator />
 
                 <div className="flex flex-wrap gap-3">
-                  <Button onClick={runNextStep} disabled={demoStep === 4}>
+                  <Button
+                    onClick={runNextStep}
+                    disabled={demoStep === 4}
+                    className="shadow-[3px_3px_0_oklch(0.15_0_0/30%)]"
+                  >
                     {getNextStepLabel()}
                     <ArrowRight data-icon="inline-end" />
                   </Button>
@@ -496,22 +536,23 @@ export function Nut24Landing() {
               </CardContent>
             </Card>
 
-            <Card className={cn("border-border/80 bg-card/80", revealMotion)}>
+            {/* Protocol Inspector */}
+            <Card className={cn("bg-card/80", revealMotion)}>
               <CardHeader>
-                <CardTitle className="text-sm uppercase tracking-[0.08em]">Protocol Inspector</CardTitle>
+                <CardTitle className="text-sm font-bold uppercase tracking-[0.08em]">Protocol Inspector</CardTitle>
                 <CardDescription>Server headers, decoded payload, and validation decisions.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <p className="text-muted-foreground text-[11px] uppercase tracking-[0.12em]">Request log</p>
-                    <pre className="bg-background/80 min-h-28 overflow-x-auto border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
+                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-lg border-2 border-border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
                       {requestLog.length > 0 ? requestLog.join("\n\n") : "No requests sent yet"}
                     </pre>
                   </div>
                   <div className="space-y-2">
                     <p className="text-muted-foreground text-[11px] uppercase tracking-[0.12em]">Response log</p>
-                    <pre className="bg-background/80 min-h-28 overflow-x-auto border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
+                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-lg border-2 border-border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
                       {responseLog.join("\n")}
                     </pre>
                   </div>
@@ -519,14 +560,14 @@ export function Nut24Landing() {
 
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-[11px] uppercase tracking-[0.12em]">Server header (raw)</p>
-                  <pre className="bg-background/80 overflow-x-auto border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
+                  <pre className="bg-foreground/5 overflow-x-auto rounded-lg border-2 border-border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
                     {`X-Cashu: ${encodedHeader}`}
                   </pre>
                 </div>
 
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-[11px] uppercase tracking-[0.12em]">Decoded on client</p>
-                  <pre className="bg-background/80 min-h-32 overflow-x-auto border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
+                  <pre className="bg-foreground/5 min-h-32 overflow-x-auto rounded-lg border-2 border-border p-3 font-mono text-[11px] leading-relaxed whitespace-pre-wrap">
                     {decodedRequest ? JSON.stringify(decodedRequest, null, 2) : "Run step 2 to decode X-Cashu"}
                   </pre>
                   {decodeError ? (
@@ -541,15 +582,15 @@ export function Nut24Landing() {
                   <p className="text-muted-foreground text-[11px] uppercase tracking-[0.12em]">Validation checks</p>
                   <div className="space-y-2">
                     {validation.length === 0 ? (
-                      <p className="text-muted-foreground border p-3 text-xs">Run until final step to evaluate checks.</p>
+                      <p className="text-muted-foreground rounded-lg border-2 border-border p-3 text-xs">Run until final step to evaluate checks.</p>
                     ) : (
                       validation.map((item) => (
-                        <div key={item.label} className="flex items-start justify-between gap-4 border p-3">
+                        <div key={item.label} className="flex items-start justify-between gap-4 rounded-lg border-2 border-border p-3">
                           <div>
-                            <p className="text-xs font-medium">{item.label}</p>
+                            <p className="text-xs font-bold">{item.label}</p>
                             <p className="text-muted-foreground mt-1 text-xs">{item.detail}</p>
                           </div>
-                          <Badge variant={item.pass ? "secondary" : "destructive"} className="rounded-none">
+                          <Badge variant={item.pass ? "secondary" : "destructive"}>
                             {item.pass ? "pass" : "fail"}
                           </Badge>
                         </div>
@@ -580,17 +621,17 @@ export function Nut24Landing() {
                   then strict server-side checks.
                 </p>
                 <div className="flex flex-wrap gap-2 text-[11px]">
-                  <Badge variant="outline" className="rounded-none">
+                  <Badge variant="outline">
                     Required amount: {paymentRequest.a} sat
                   </Badge>
-                  <Badge variant="outline" className="rounded-none">
+                  <Badge variant="outline">
                     Accepted mints: {paymentRequest.m.length}
                   </Badge>
-                  <Badge variant="outline" className="rounded-none">
+                  <Badge variant="outline">
                     <LockKeyhole className="mr-1 size-3" />
                     NUT-10 lock check
                   </Badge>
-                  <Badge variant="outline" className="rounded-none">
+                  <Badge variant="outline">
                     <Coins className="mr-1 size-3" />
                     Header + token flow
                   </Badge>

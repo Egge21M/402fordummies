@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "402forDummies | NUT-24 Landing",
+  title: "402 for Dummies | NUT-24 Landing",
   description:
     "A clean and technical guide to Cashu NUT-24 HTTP 402 payments, with flow diagrams and an interactive protocol demo.",
 };

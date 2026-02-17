@@ -8,7 +8,7 @@ export function TldrModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/80 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 border-[6px] border-primary bg-black/80 p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       onClick={() => router.back()}
