@@ -231,13 +231,13 @@ export function Nut24Landing() {
       {/* ===== HERO SECTION ===== */}
       <section
         className={cn(
-          "relative bg-primary px-6 pb-32 sm:pb-24 pt-20 sm:px-10 lg:px-16 overflow-hidden",
+          "relative bg-primary px-6 pb-8 sm:pb-24 pt-20 sm:px-10 lg:px-16 overflow-hidden",
           revealMotion,
           "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
         )}
       >
-        {/* Background logo - bottom right */}
-        <div className="absolute bottom-2 right-4 sm:-bottom-12 sm:right-0 lg:-bottom-16 w-40 h-40 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] pointer-events-none">
+        {/* Background logo - bottom right - Desktop only */}
+        <div className="hidden lg:block absolute -bottom-16 right-0 w-[500px] h-[500px] pointer-events-none">
           <Image
             src="/for-dummies-logo.png"
             alt="For Dummies logo"
@@ -313,6 +313,18 @@ export function Nut24Landing() {
             </Button>
           </div>
 
+          {/* Logo for mobile/tablet - in normal flow below buttons */}
+          <div className="lg:hidden flex justify-end mt-4 -mb-8 relative z-10">
+            <div className="relative w-48 h-48">
+              <Image
+                src="/for-dummies-logo.png"
+                alt="For Dummies logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
 
         </div>
       </section>
@@ -349,16 +361,16 @@ export function Nut24Landing() {
                   className="shadow-none"
                 >
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.08em]">
-                      <span className="inline-flex size-8 items-center justify-center rounded-full border border-gray-600 bg-primary text-xs font-bold text-primary-foreground">
+                    <CardTitle className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.08em] break-words">
+                      <span className="inline-flex size-8 items-center justify-center rounded-full border border-gray-600 bg-primary text-xs font-bold text-primary-foreground shrink-0">
                         {index + 1}
                       </span>
-                      {step.title}
+                      <span className="break-words">{step.title}</span>
                     </CardTitle>
                     <CardDescription>{step.detail}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-4 font-mono text-sm leading-relaxed">
+                    <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-4 font-mono text-sm leading-relaxed whitespace-pre-wrap break-words">
                       {step.packet}
                     </pre>
                   </CardContent>
