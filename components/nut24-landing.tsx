@@ -269,14 +269,15 @@ export function Nut24Landing() {
 
           {/* Logo + headline */}
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-            <Image
-              src="/for-dummies-logo.png"
-              alt="For Dummies logo"
-              width={100}
-              height={100}
-              className="shrink-0 w-20 h-20 sm:w-24 sm:h-24"
-              priority
-            />
+            <div className="shrink-0 relative w-20 h-20 sm:w-24 sm:h-24">
+              <Image
+                src="/for-dummies-logo.png"
+                alt="For Dummies logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
             <h1
               className={cn(
                 "text-5xl leading-tight font-bold sm:text-7xl",
@@ -340,7 +341,7 @@ export function Nut24Landing() {
               <Card
                 key={label}
                 className={cn(
-                  "border-foreground/30 bg-foreground",
+                  "border-foreground/50 bg-foreground shadow-none",
                   revealMotion,
                   "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
                 )}
@@ -372,7 +373,7 @@ export function Nut24Landing() {
               <Badge variant="outline">
                 5-step handshake
               </Badge>
-              <Button asChild variant="secondary">
+              <Button asChild className="bg-primary text-foreground hover:bg-primary/90">
                 <a href="https://github.com/cashubtc/nuts/blob/main/24.md" target="_blank" rel="noreferrer">
                   Read NUT-24 Spec
                 </a>
@@ -388,7 +389,7 @@ export function Nut24Landing() {
                   data-step-index={index}
                   data-visible={revealed.includes(index)}
                   className={cn(
-                    "opacity-0 translate-y-8 scale-[0.985]",
+                    "opacity-0 translate-y-8 scale-[0.985] shadow-none",
                     revealMotion,
                     "data-[visible=true]:opacity-100 data-[visible=true]:translate-y-0 data-[visible=true]:scale-100"
                   )}
@@ -461,7 +462,7 @@ export function Nut24Landing() {
 
           <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
             {/* Client Controls */}
-            <Card className={cn(revealMotion)}>
+            <Card className={cn("shadow-none", revealMotion)}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base font-bold uppercase tracking-[0.08em]">
                   <Sparkles className="size-4 text-primary" />
@@ -544,7 +545,7 @@ export function Nut24Landing() {
             </Card>
 
             {/* Protocol Inspector */}
-            <Card className={cn("bg-card/80", revealMotion)}>
+            <Card className={cn("bg-card/80 shadow-none", revealMotion)}>
               <CardHeader>
                 <CardTitle className="text-sm font-bold uppercase tracking-[0.08em]">Protocol Inspector</CardTitle>
                 <CardDescription>Server headers, decoded payload, and validation decisions.</CardDescription>
