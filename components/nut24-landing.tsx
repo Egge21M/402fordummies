@@ -95,7 +95,6 @@ export function Nut24Landing() {
   const [unit, setUnit] = useState("sat");
   const [mint, setMint] = useState(acceptedMints[0]);
   const [lockConditionSatisfied, setLockConditionSatisfied] = useState(true);
-  const [revealed, setRevealed] = useState<number[]>([]);
   const [showTldr, setShowTldr] = useState(false);
 
   const [demoStep, setDemoStep] = useState<DemoPhase>(0);
@@ -131,26 +130,7 @@ export function Nut24Landing() {
 
   const encodedHeader = useMemo(() => encodeHeader(paymentRequest), [paymentRequest]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const index = Number((entry.target as HTMLElement).dataset.stepIndex);
-          setRevealed((prev) => (prev.includes(index) ? prev : [...prev, index]));
-        });
-      },
-      { threshold: 0.25 }
-    );
 
-    const nodes = document.querySelectorAll("[data-flow-step]");
-    nodes.forEach((node) => observer.observe(node));
-
-    return () => {
-      nodes.forEach((node) => observer.unobserve(node));
-      observer.disconnect();
-    };
-  }, []);
 
   function resetDemo() {
     setDemoStep(0);
@@ -257,7 +237,7 @@ export function Nut24Landing() {
         )}
       >
         {/* Background logo - bottom right */}
-        <div className="absolute bottom-0 right-0 w-64 h-64 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] pointer-events-none">
+        <div className="absolute -bottom-32 right-0 sm:-bottom-12 lg:-bottom-16 w-64 h-64 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] pointer-events-none">
           <Image
             src="/for-dummies-logo.png"
             alt="For Dummies logo"
@@ -271,7 +251,7 @@ export function Nut24Landing() {
           {/* Top bar */}
           <div className="flex items-center justify-between relative z-10">
             <Badge
-              className="w-fit border border-gray-600 bg-primary px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground"
+              className="w-fit border border-gray-600 bg-white px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground"
               variant="secondary"
             >
               NUT-24 / HTTP 402 + Cashu
@@ -296,7 +276,7 @@ export function Nut24Landing() {
 
           <p
             className={cn(
-              "w-full text-lg leading-relaxed sm:text-xl text-foreground relative z-10",
+              "w-full max-w-3xl text-lg leading-relaxed sm:text-xl text-foreground relative z-10",
               revealMotion,
               "motion-safe:animate-in motion-safe:fade-in"
             )}
@@ -317,7 +297,7 @@ export function Nut24Landing() {
             <Button
               onClick={() => setShowTldr(true)}
               size="lg"
-              className="h-auto rounded-md border border-gray-600 bg-primary px-6 py-3 text-base font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-primary/90"
+              className="h-auto rounded-md border border-gray-600 bg-foreground px-6 py-3 text-base font-bold text-white shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-foreground/90"
             >
               Give me the TL;DR
             </Button>
@@ -345,15 +325,15 @@ export function Nut24Landing() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
           <div className="flex items-end justify-between gap-6">
             <div>
+              <Badge variant="outline" className="mb-3">
+                5-step handshake
+              </Badge>
               <h2 className="text-3xl font-bold sm:text-5xl">Flow that falls into place</h2>
               <p className="text-muted-foreground mt-2 max-w-2xl text-base sm:text-lg">
                 Scroll through the request/response lifecycle used by NUT-24.
               </p>
             </div>
             <div className="hidden items-center gap-2 sm:flex">
-              <Badge variant="outline">
-                5-step handshake
-              </Badge>
               <Button asChild className="bg-primary text-foreground hover:bg-primary/90">
                 <a href="https://github.com/cashubtc/nuts/blob/main/24.md" target="_blank" rel="noreferrer">
                   Read NUT-24 Spec
@@ -366,15 +346,7 @@ export function Nut24Landing() {
             {flowSteps.map((step, index) => (
               <div key={step.title}>
                 <Card
-                  data-flow-step
-                  data-step-index={index}
-                  data-visible={revealed.includes(index)}
-                  className={cn(
-                    "opacity-0 translate-y-8 scale-[0.985] shadow-none",
-                    revealMotion,
-                    "data-[visible=true]:opacity-100 data-[visible=true]:translate-y-0 data-[visible=true]:scale-100"
-                  )}
-                  style={{ transitionDelay: `${index * 110}ms` }}
+                  className="shadow-none"
                 >
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.08em]">
