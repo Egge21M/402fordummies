@@ -251,16 +251,27 @@ export function Nut24Landing() {
       {/* ===== HERO SECTION ===== */}
       <section
         className={cn(
-          "relative bg-primary px-6 pb-24 pt-20 sm:px-10 lg:px-16",
+          "relative bg-primary px-6 pb-24 pt-20 sm:px-10 lg:px-16 overflow-hidden",
           revealMotion,
           "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
         )}
       >
+        {/* Background logo - bottom right */}
+        <div className="absolute bottom-0 right-0 w-64 h-64 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] pointer-events-none">
+          <Image
+            src="/for-dummies-logo.png"
+            alt="For Dummies logo"
+            fill
+            className="object-contain object-bottom"
+            priority
+          />
+        </div>
+
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
           {/* Top bar */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between relative z-10">
             <Badge
-              className="w-fit border-2 border-foreground bg-primary px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground"
+              className="w-fit border border-gray-600 bg-primary px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground"
               variant="secondary"
             >
               NUT-24 / HTTP 402 + Cashu
@@ -268,16 +279,7 @@ export function Nut24Landing() {
           </div>
 
           {/* Logo + headline */}
-          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-            <div className="shrink-0 relative w-20 h-20 sm:w-24 sm:h-24">
-              <Image
-                src="/for-dummies-logo.png"
-                alt="For Dummies logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
+          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center relative z-10">
             <h1
               className={cn(
                 "text-5xl leading-tight font-bold sm:text-7xl",
@@ -286,15 +288,15 @@ export function Nut24Landing() {
               )}
             >
               <span className="dummies-highlight">
-                <span className="font-bold">402</span>{" "}
-                <span className="font-dummies">for dummies</span>
+                <span className="font-bold text-white">402 for</span>{" "}
+                <span className="font-dummies">dummies</span>
               </span>
             </h1>
           </div>
 
           <p
             className={cn(
-              "max-w-2xl text-base leading-relaxed sm:text-lg text-foreground",
+              "w-full text-lg leading-relaxed sm:text-xl text-foreground relative z-10",
               revealMotion,
               "motion-safe:animate-in motion-safe:fade-in"
             )}
@@ -307,7 +309,7 @@ export function Nut24Landing() {
 
           <div
             className={cn(
-              "flex flex-wrap items-center gap-4",
+              "flex flex-wrap items-center gap-4 relative z-10",
               revealMotion,
               "motion-safe:animate-in motion-safe:fade-in"
             )}
@@ -315,14 +317,14 @@ export function Nut24Landing() {
             <Button
               onClick={() => setShowTldr(true)}
               size="lg"
-              className="h-auto rounded-md border-2 border-foreground bg-primary px-6 py-3 text-sm font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-primary/90"
+              className="h-auto rounded-md border border-gray-600 bg-primary px-6 py-3 text-base font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-primary/90"
             >
               Give me the TL;DR
             </Button>
             <Button
               asChild
               size="lg"
-              className="h-auto rounded-md border-2 border-foreground bg-white px-6 py-3 text-sm font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-white/90"
+              className="h-auto rounded-md border border-gray-600 bg-white px-6 py-3 text-base font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-white/90"
             >
               <a href="#demo">
                 Try Interactive Demo
@@ -331,28 +333,7 @@ export function Nut24Landing() {
             </Button>
           </div>
 
-          {/* NUT cards */}
-          <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            {[
-              ["NUT-24", "HTTP 402 payment negotiation"],
-              ["NUT-18", "Encoded request structure"],
-              ["NUT-12", "Token handling for clients"],
-            ].map(([label, text]) => (
-              <Card
-                key={label}
-                className={cn(
-                  "border-foreground/50 bg-foreground shadow-none",
-                  revealMotion,
-                  "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
-                )}
-              >
-                <CardHeader>
-                  <CardTitle className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{label}</CardTitle>
-                  <CardDescription className="text-background/80">{text}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
+
         </div>
       </section>
 
@@ -397,7 +378,7 @@ export function Nut24Landing() {
                 >
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.08em]">
-                      <span className="inline-flex size-8 items-center justify-center rounded-full border-2 border-foreground bg-primary text-xs font-bold text-primary-foreground">
+                      <span className="inline-flex size-8 items-center justify-center rounded-full border border-gray-600 bg-primary text-xs font-bold text-primary-foreground">
                         {index + 1}
                       </span>
                       {step.title}
@@ -405,7 +386,7 @@ export function Nut24Landing() {
                     <CardDescription>{step.detail}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <pre className="bg-foreground/5 overflow-x-auto rounded-md border-2 border-border p-4 font-mono text-xs leading-relaxed">
+                    <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-4 font-mono text-sm leading-relaxed">
                       {step.packet}
                     </pre>
                   </CardContent>
@@ -433,7 +414,7 @@ export function Nut24Landing() {
                 payment token, and final server validation.
               </p>
             </div>
-            <Badge variant="secondary" className="border-2 border-border">
+            <Badge variant="secondary" className="border-2 border-gray-600 bg-gray-100 px-5 py-2.5 text-base font-semibold">
               Current step: {activeStepLabel}
             </Badge>
           </div>
@@ -447,7 +428,7 @@ export function Nut24Landing() {
                 <div
                   key={phase}
                   className={cn(
-                    "rounded-md border-2 border-border p-3",
+                    "rounded-md border border-gray-300 p-3",
                     revealMotion,
                     complete && "border-emerald-600 bg-emerald-500/10",
                     active && "border-primary bg-primary/15"
@@ -554,13 +535,13 @@ export function Nut24Landing() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Request log</p>
-                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-md border-2 border-border p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
                       {requestLog.length > 0 ? requestLog.join("\n\n") : "No requests sent yet"}
                     </pre>
                   </div>
                   <div className="space-y-2">
                     <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Response log</p>
-                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-md border-2 border-border p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
                       {responseLog.join("\n")}
                     </pre>
                   </div>
@@ -568,14 +549,14 @@ export function Nut24Landing() {
 
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Server header (raw)</p>
-                  <pre className="bg-foreground/5 overflow-x-auto rounded-md border-2 border-border p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+                  <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
                     {`X-Cashu: ${encodedHeader}`}
                   </pre>
                 </div>
 
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Decoded on client</p>
-                  <pre className="bg-foreground/5 min-h-32 overflow-x-auto rounded-md border-2 border-border p-3 font-mono text-xs leading-relaxed whitespace-pre-wrap">
+                  <pre className="bg-foreground/5 min-h-32 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
                     {decodedRequest ? JSON.stringify(decodedRequest, null, 2) : "Run step 2 to decode X-Cashu"}
                   </pre>
                   {decodeError ? (
@@ -590,10 +571,10 @@ export function Nut24Landing() {
                   <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Validation checks</p>
                   <div className="space-y-2">
                     {validation.length === 0 ? (
-                      <p className="text-muted-foreground rounded-md border-2 border-border p-3 text-sm">Run until final step to evaluate checks.</p>
+                      <p className="text-muted-foreground rounded-md border border-gray-300 p-3 text-base">Run until final step to evaluate checks.</p>
                     ) : (
                       validation.map((item) => (
-                        <div key={item.label} className="flex items-start justify-between gap-4 rounded-md border-2 border-border p-3">
+                        <div key={item.label} className="flex items-start justify-between gap-4 rounded-md border border-gray-300 p-3">
                           <div>
                             <p className="text-sm font-bold">{item.label}</p>
                             <p className="text-muted-foreground mt-1 text-sm">{item.detail}</p>

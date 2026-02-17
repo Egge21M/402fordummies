@@ -96,7 +96,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground text-sm;
+    @apply bg-background text-foreground text-base;
   }
 }
 
@@ -114,7 +114,7 @@
   }
 
   .dummies-tip {
-    border: 2px solid var(--border);
+    border: 1px solid oklch(0.7 0.005 285);
     border-radius: 0.5rem;
     padding: 1rem 1.25rem 1rem 3.5rem;
     background: oklch(0.87 0.19 95 / 12%);
@@ -136,7 +136,7 @@
 
   .dummies-speech-bubble {
     position: relative;
-    border: 2px solid var(--border);
+    border: 1px solid oklch(0.7 0.005 285);
     border-radius: 0.5rem;
     padding: 1rem 1.25rem;
     background: var(--card);
@@ -150,7 +150,7 @@
     height: 0;
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
-    border-top: 12px solid var(--border);
+    border-top: 12px solid oklch(0.7 0.005 285);
   }
 
   .dummies-highlight {
