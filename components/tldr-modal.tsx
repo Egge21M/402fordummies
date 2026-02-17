@@ -1,33 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 
-export function TldrModal() {
-  const router = useRouter();
+interface TldrModalProps {
+  onClose: () => void;
+}
 
-  const close = () => {
-    router.push("/");
-  };
-
+export function TldrModal({ onClose }: TldrModalProps) {
   return (
     <div
-      className="fixed inset-0 z-50 border-[6px] border-primary bg-black/80 p-4 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      onClick={close}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+      onClick={onClose}
     >
       <button
-        onClick={close}
-        className="absolute top-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-foreground shadow-lg hover:bg-primary/90"
-        aria-label="Close"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        className="absolute top-4 right-4 flex h-12 w-12 items-center justify-center rounded-full bg-yellow-400 text-black shadow-lg hover:bg-yellow-300"
       >
-        <X className="h-5 w-5" />
+        <X className="h-6 w-6" />
       </button>
+      
       <div
-        className="relative mx-auto h-full w-full max-w-5xl"
-        onClick={(event) => event.stopPropagation()}
+        className="relative h-[80vh] w-full max-w-5xl"
+        onClick={(e) => e.stopPropagation()}
       >
         <Image
           src="/tldr.jpg"

@@ -29,6 +29,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { TldrModal } from "@/components/tldr-modal";
 
 const acceptedMints = ["https://mint.minibits.cash/Bitcoin", "https://mint.coinos.io"];
 
@@ -95,9 +96,21 @@ export function Nut24Landing() {
   const [mint, setMint] = useState(acceptedMints[0]);
   const [lockConditionSatisfied, setLockConditionSatisfied] = useState(true);
   const [revealed, setRevealed] = useState<number[]>([]);
+  const [showTldr, setShowTldr] = useState(false);
 
   const [demoStep, setDemoStep] = useState<DemoPhase>(0);
   const [decodedRequest, setDecodedRequest] = useState<null | Record<string, unknown>>(null);
+  
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showTldr) {
+        setShowTldr(false);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [showTldr]);
   const [requestLog, setRequestLog] = useState<string[]>([]);
   const [responseLog, setResponseLog] = useState<string[]>(["Awaiting first request"]);
   const [validation, setValidation] = useState<ValidationResult[]>([]);
@@ -299,11 +312,11 @@ export function Nut24Landing() {
             )}
           >
             <Button
-              asChild
+              onClick={() => setShowTldr(true)}
               size="lg"
               className="h-auto rounded-md border-2 border-foreground bg-primary px-6 py-3 text-sm font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-primary/90"
             >
-              <Link href="/tldr">Give me the TL;DR</Link>
+              Give me the TL;DR
             </Button>
             <Button
               asChild
@@ -635,6 +648,8 @@ export function Nut24Landing() {
           </div>
         </div>
       </section>
+      
+      {showTldr && <TldrModal onClose={() => setShowTldr(false)} />}
     </main>
   );
 }
