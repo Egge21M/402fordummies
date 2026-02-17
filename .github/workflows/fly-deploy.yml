@@ -1,0 +1,35 @@
+name: Fly Deploy
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+  workflow_dispatch:
+
+jobs:
+  deploy-production:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy to Fly production
+        run: flyctl deploy --config fly.toml --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy to Fly staging
+        run: flyctl deploy --config staging_fly.toml --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_STAGING_TOKEN }}
