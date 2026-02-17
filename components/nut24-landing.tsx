@@ -231,13 +231,13 @@ export function Nut24Landing() {
       {/* ===== HERO SECTION ===== */}
       <section
         className={cn(
-          "relative bg-primary px-6 pb-24 pt-20 sm:px-10 lg:px-16 overflow-hidden",
+          "relative bg-primary px-6 pb-32 sm:pb-24 pt-20 sm:px-10 lg:px-16 overflow-hidden",
           revealMotion,
           "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
         )}
       >
         {/* Background logo - bottom right */}
-        <div className="absolute -bottom-32 right-0 sm:-bottom-12 lg:-bottom-16 w-64 h-64 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] pointer-events-none">
+        <div className="absolute bottom-2 right-4 sm:-bottom-12 sm:right-0 lg:-bottom-16 w-40 h-40 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] pointer-events-none">
           <Image
             src="/for-dummies-logo.png"
             alt="For Dummies logo"
