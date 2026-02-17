@@ -237,7 +237,7 @@ export function Nut24Landing() {
         )}
       >
         {/* Background logo - bottom right - Desktop only */}
-        <div className="hidden lg:block absolute -bottom-16 right-0 w-[500px] h-[500px] pointer-events-none">
+        <div className="hidden lg:block absolute -bottom-16 right-0 lg:w-[350px] lg:h-[350px] xl:w-[500px] xl:h-[500px] pointer-events-none">
           <Image
             src="/for-dummies-logo.png"
             alt="For Dummies logo"
