@@ -534,7 +534,7 @@ export function Nut24Landing() {
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Server header (raw)</p>
                   <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
-                    {`X-Cashu: ${encodedHeader}`}
+                    {`X-Cashu: cashuBo2FhGRkBaXVjc2F0AmFtaHR0cHM6Ly9taW50Lm1pbmliaXRzLmNhc2gvQml0Y29pbgNhcP8=`}
                   </pre>
                 </div>
 
