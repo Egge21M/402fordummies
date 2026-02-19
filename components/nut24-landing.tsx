@@ -541,7 +541,9 @@ export function Nut24Landing() {
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Server header (raw)</p>
                   <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
-                    {`X-Cashu: cashuBo2FhGRkBaXVjc2F0AmFtaHR0cHM6Ly9taW50Lm1pbmliaXRzLmNhc2gvQml0Y29pbgNhcP8=`}
+                    {demoStep === 1
+                      ? `X-Cashu: creqAo2F0gaNhdGVub3N0cmFheM9ucHJvZmlsZTFxeTI4d3VtbjhnaGo3dW45ZDNzaGp0bnl2OWtoMnVld2Q5aHN6OW1od2RlbjV0ZTB3ZmprY2N0ZTljdXJ4dmVuOWVlaHFjdHJ2NWhzenJ0aHdkZW41dGUwZGVoaHh0bnZkYWtxejluaHdkZW41dGUwd2Zqa2NjdGU5ZWM4eTZ0ZHY5a3p1bW45d3NxenF0ajRzaDZkajA0dTluazRkOGpyZ3Y1Y3pscDdneDVnM3M2cjNqZHF3YTJ5OXl2ZGprNWgydjc0N3ZhZ4GCYW5iMTdhaWg3NDBmNDgxOGF1Y3NhdA==`
+                      : `X-Cashu: cashuBo2FhGRkBaXVjc2F0AmFtaHR0cHM6Ly9taW50Lm1pbmliaXRzLmNhc2gvQml0Y29pbgNhcP8=`}
                   </pre>
                 </div>
 
