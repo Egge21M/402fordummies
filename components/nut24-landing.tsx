@@ -141,11 +141,11 @@ export function Nut24Landing() {
     setValidation([]);
   }
 
-  function getNextStepLabel() {
-    if (demoStep === 0) return "Step 1: Request protected resource";
-    if (demoStep === 1) return "Step 2: Decode X-Cashu header";
-    if (demoStep === 2) return "Step 3: Retry with cashuB token";
-    if (demoStep === 3) return "Step 4: Run server validation";
+  function getCurrentStepLabel() {
+    if (demoStep === 0) return "Run: Request protected resource";
+    if (demoStep === 1) return "Run: Decode X-Cashu header";
+    if (demoStep === 2) return "Run: Retry with cashuB token";
+    if (demoStep === 3) return "Run: Validate payment";
     return "Flow complete";
   }
 
@@ -398,9 +398,6 @@ export function Nut24Landing() {
                 payment token, and final server validation.
               </p>
             </div>
-            <Badge variant="secondary" className="border-2 border-gray-600 bg-gray-100 px-5 py-2.5 text-base font-semibold">
-              Current step: {activeStepLabel}
-            </Badge>
           </div>
 
           {/* Demo phase indicators */}
@@ -408,17 +405,23 @@ export function Nut24Landing() {
             {demoPhases.map((phase, index) => {
               const complete = index < demoStep;
               const active = index === demoStep;
+              const pending = index > demoStep;
               return (
                 <div
                   key={phase}
                   className={cn(
-                    "rounded-md border border-gray-300 p-3",
+                    "relative rounded-md border border-gray-300 p-3 transition-opacity",
                     revealMotion,
-                    complete && "border-emerald-600 bg-emerald-500/10",
-                    active && "border-primary bg-primary/15"
+                    complete && "border-gray-400 bg-gray-100/50",
+                    active && "border-primary bg-primary/15",
+                    pending && "opacity-50"
                   )}
                 >
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">Step {index + 1}</p>
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                    Step {index + 1}
+                    {complete && <CheckCircle2 className="ml-1 inline-block size-3 text-gray-500" />}
+                    {active && <ArrowRight className="ml-1 inline-block size-3 text-primary" />}
+                  </p>
                   <p className="mt-1 text-sm font-bold leading-relaxed">{phase}</p>
                 </div>
               );
@@ -492,19 +495,23 @@ export function Nut24Landing() {
 
                 <Separator />
 
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-col gap-3">
                   <Button
                     onClick={runNextStep}
                     disabled={demoStep === 4}
-                    className="shadow-[3px_3px_0_oklch(0.15_0_0/30%)]"
+                    className="h-auto text-lg py-6 shadow-[3px_3px_0_oklch(0.15_0_0/30%)]"
                   >
-                    {getNextStepLabel()}
+                    {getCurrentStepLabel()}
                     <ArrowRight data-icon="inline-end" />
                   </Button>
-                  <Button variant="outline" onClick={resetDemo}>
-                    <RotateCcw data-icon="inline-start" />
-                    Reset flow
-                  </Button>
+                  {demoStep > 0 && (
+                    <button
+                      onClick={resetDemo}
+                      className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                    >
+                      Reset flow
+                    </button>
+                  )}
                 </div>
               </CardContent>
             </Card>
