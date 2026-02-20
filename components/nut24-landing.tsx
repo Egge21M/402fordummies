@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
   CircleDotDashed,
   Coins,
   LockKeyhole,
-  RotateCcw,
   ShieldAlert,
   Sparkles,
 } from "lucide-react";
@@ -78,7 +76,7 @@ const demoPhases = [
 ] as const;
 
 const revealMotion =
-  "motion-safe:transition-all motion-safe:duration-500 motion-safe:ease-out motion-reduce:transition-none";
+  "motion-safe:transition-[transform,opacity,filter] motion-safe:duration-300 motion-safe:ease-out motion-reduce:transition-none";
 
 const demoCost = 21;
 
@@ -96,19 +94,19 @@ export function Nut24Landing() {
   const [mint, setMint] = useState(acceptedMints[0]);
   const [lockConditionSatisfied, setLockConditionSatisfied] = useState(true);
   const [showTldr, setShowTldr] = useState(false);
+  const wasTldrOpenRef = useRef(false);
 
   const [demoStep, setDemoStep] = useState<DemoPhase>(0);
   const [decodedRequest, setDecodedRequest] = useState<null | Record<string, unknown>>(null);
   
-  // Handle ESC key to close modal
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && showTldr) {
-        setShowTldr(false);
+    if (wasTldrOpenRef.current && !showTldr) {
+      const trigger = document.getElementById("hero-tldr-trigger");
+      if (trigger instanceof HTMLElement) {
+        trigger.focus();
       }
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    }
+    wasTldrOpenRef.current = showTldr;
   }, [showTldr]);
   const [requestLog, setRequestLog] = useState<string[]>([]);
   const [responseLog, setResponseLog] = useState<string[]>(["Awaiting first request"]);
@@ -222,8 +220,6 @@ export function Nut24Landing() {
     }
   }
 
-  const activeStepLabel = ["Ready", "402 received", "Header decoded", "Token submitted", "Server validated"][demoStep];
-
   const finalOk = validation.length > 0 && validation.every((item) => item.pass) && !decodeError;
 
   return (
@@ -231,7 +227,7 @@ export function Nut24Landing() {
       {/* ===== HERO SECTION ===== */}
       <section
         className={cn(
-          "relative bg-primary px-6 pb-8 sm:pb-24 pt-20 sm:px-10 lg:px-16 overflow-hidden",
+          "relative bg-primary px-6 pb-12 pt-16 sm:px-10 sm:pb-20 sm:pt-20 lg:px-16 overflow-hidden",
           revealMotion,
           "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
         )}
@@ -247,7 +243,7 @@ export function Nut24Landing() {
           />
         </div>
 
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 sm:gap-8">
           {/* Top bar */}
           <div className="flex items-center justify-between relative z-10">
             <Badge
@@ -259,10 +255,10 @@ export function Nut24Landing() {
           </div>
 
           {/* Logo + headline */}
-          <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center relative z-10">
+          <div className="relative z-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
             <h1
               className={cn(
-                "text-5xl leading-tight font-bold sm:text-7xl",
+                "text-4xl font-bold leading-tight sm:text-7xl",
                 revealMotion,
                 "motion-safe:animate-in motion-safe:fade-in"
               )}
@@ -276,7 +272,7 @@ export function Nut24Landing() {
 
           <p
             className={cn(
-              "w-full max-w-3xl text-lg leading-relaxed sm:text-xl text-foreground relative z-10",
+              "relative z-10 w-full max-w-2xl text-base leading-relaxed text-foreground sm:text-xl",
               revealMotion,
               "motion-safe:animate-in motion-safe:fade-in"
             )}
@@ -289,22 +285,23 @@ export function Nut24Landing() {
 
           <div
             className={cn(
-              "flex flex-wrap items-center gap-4 relative z-10",
+              "relative z-10 flex flex-wrap items-center gap-3 sm:gap-4",
               revealMotion,
               "motion-safe:animate-in motion-safe:fade-in"
             )}
           >
             <Button
+              id="hero-tldr-trigger"
               onClick={() => setShowTldr(true)}
               size="lg"
-              className="h-auto rounded-md border border-gray-600 bg-foreground px-6 py-3 text-base font-bold text-white shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-foreground/90"
+              className="dummies-pressable h-auto rounded-md border border-gray-600 bg-foreground px-6 py-3 text-base font-bold text-white shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-foreground/90"
             >
               Give me the TL;DR
             </Button>
             <Button
               asChild
               size="lg"
-              className="h-auto rounded-md border border-gray-600 bg-white px-6 py-3 text-base font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-white/90"
+              className="dummies-pressable h-auto rounded-md border border-gray-600 bg-white px-6 py-3 text-base font-bold text-foreground shadow-[4px_4px_0_oklch(0.15_0_0/30%)] hover:bg-white/90"
             >
               <a href="#demo">
                 Try Interactive Demo
@@ -333,7 +330,7 @@ export function Nut24Landing() {
       <div className="h-6 bg-primary dummies-separator-bottom" />
 
       {/* ===== FLOW SECTION ===== */}
-      <section className="px-6 py-24 sm:px-10 lg:px-16">
+      <section id="flow" className="px-6 py-20 sm:px-10 sm:py-24 lg:px-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
           <div className="flex items-end justify-between gap-6">
             <div>
@@ -341,24 +338,34 @@ export function Nut24Landing() {
                 5-step handshake
               </Badge>
               <h2 className="text-3xl font-bold sm:text-5xl">Flow that falls into place</h2>
-              <p className="text-muted-foreground mt-2 max-w-2xl text-base sm:text-lg">
+              <p className="text-muted-foreground mt-2 max-w-xl text-base sm:text-lg">
                 Scroll through the request/response lifecycle used by NUT-24.
               </p>
             </div>
             <div className="hidden items-center gap-2 sm:flex">
-              <Button asChild className="bg-primary text-foreground hover:bg-primary/90">
+              <Button asChild className="dummies-pressable bg-primary text-foreground hover:bg-primary/90">
                 <a href="https://github.com/cashubtc/nuts/blob/main/24.md" target="_blank" rel="noreferrer">
                   Read NUT-24 Spec
                 </a>
               </Button>
             </div>
           </div>
+          <div className="flex flex-wrap gap-2 sm:hidden">
+            <Button asChild size="sm" className="dummies-pressable bg-primary text-foreground hover:bg-primary/90">
+              <a href="https://github.com/cashubtc/nuts/blob/main/24.md" target="_blank" rel="noreferrer">
+                Read NUT-24 Spec
+              </a>
+            </Button>
+            <Button asChild size="sm" variant="outline" className="dummies-pressable">
+              <a href="#demo">Jump to Demo</a>
+            </Button>
+          </div>
 
           <div className="grid gap-5">
             {flowSteps.map((step, index) => (
-              <div key={step.title}>
+              <div key={step.title} className="dummies-fade-up" style={{ animationDelay: `${index * 70}ms` }}>
                 <Card
-                  className="shadow-none"
+                  className="dummies-soft-card"
                 >
                   <CardHeader>
                     <CardTitle className="flex min-w-0 flex-wrap items-center gap-3 text-sm font-bold uppercase tracking-[0.08em]">
@@ -377,7 +384,7 @@ export function Nut24Landing() {
                 </Card>
                 {/* Speech bubble tip after step 2 */}
                 {index === 1 && (
-                  <div className="dummies-speech-bubble mt-4 max-w-full break-words text-sm [overflow-wrap:anywhere] sm:ml-10">
+                  <div className="dummies-speech-bubble dummies-bubble-enter mt-4 max-w-full break-words text-sm [overflow-wrap:anywhere] sm:ml-10">
                     <strong>What is HTTP 402?</strong> It&apos;s a status code reserved for &quot;Payment Required&quot; &mdash; and NUT-24 finally gives it a real purpose!
                   </div>
                 )}
@@ -388,7 +395,7 @@ export function Nut24Landing() {
       </section>
 
       {/* ===== DEMO SECTION ===== */}
-      <section id="demo" className="px-6 py-24 sm:px-10 lg:px-16">
+      <section id="demo" className="px-6 py-20 sm:px-10 sm:py-24 lg:px-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
@@ -410,16 +417,16 @@ export function Nut24Landing() {
                 <div
                   key={phase}
                   className={cn(
-                    "relative rounded-md border border-gray-300 p-3 transition-opacity",
+                    "relative rounded-md border border-gray-300 p-3 transition-[background-color,border-color,opacity] duration-200",
                     revealMotion,
-                    complete && "border-gray-400 bg-gray-100/50",
-                    active && "border-primary bg-primary/15",
-                    pending && "opacity-50"
+                    complete && "border-emerald-300 bg-emerald-50/60",
+                    active && "border-primary bg-primary/30 ring-1 ring-primary/50",
+                    pending && "opacity-70"
                   )}
                 >
                   <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
                     Step {index + 1}
-                    {complete && <CheckCircle2 className="ml-1 inline-block size-3 text-gray-500" />}
+                    {complete && <CheckCircle2 className="ml-1 inline-block size-3 text-emerald-600" />}
                     {active && <ArrowRight className="ml-1 inline-block size-3 text-primary" />}
                   </p>
                   <p className="mt-1 text-sm font-bold leading-relaxed">{phase}</p>
@@ -430,7 +437,7 @@ export function Nut24Landing() {
 
           <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
             {/* Client Controls */}
-            <Card className={cn("shadow-none", revealMotion)}>
+            <Card className={cn("dummies-soft-card", revealMotion)}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base font-bold uppercase tracking-[0.08em]">
                   <Sparkles className="size-4 text-primary" />
@@ -499,15 +506,16 @@ export function Nut24Landing() {
                   <Button
                     onClick={runNextStep}
                     disabled={demoStep === 4}
-                    className="h-auto text-lg py-6 shadow-[3px_3px_0_oklch(0.15_0_0/30%)]"
+                    className="dummies-pressable h-auto py-6 text-lg shadow-[3px_3px_0_oklch(0.15_0_0/30%)]"
                   >
                     {getCurrentStepLabel()}
                     <ArrowRight data-icon="inline-end" />
                   </Button>
+                  <p className="text-xs text-muted-foreground">1 click = next protocol phase.</p>
                   {demoStep > 0 && (
                     <button
                       onClick={resetDemo}
-                      className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                      className="w-fit rounded-md px-1 py-1 text-sm text-foreground/70 underline underline-offset-4 transition-colors hover:text-foreground"
                     >
                       Reset flow
                     </button>
@@ -517,7 +525,7 @@ export function Nut24Landing() {
             </Card>
 
             {/* Protocol Inspector */}
-            <Card className={cn("bg-card/80 shadow-none", revealMotion)}>
+            <Card className={cn("dummies-soft-card bg-card/90", revealMotion)}>
               <CardHeader>
                 <CardTitle className="text-sm font-bold uppercase tracking-[0.08em]">Protocol Inspector</CardTitle>
                 <CardDescription>Server headers, decoded payload, and validation decisions.</CardDescription>
@@ -626,7 +634,7 @@ export function Nut24Landing() {
         </div>
       </section>
       
-      {showTldr && <TldrModal onClose={() => setShowTldr(false)} />}
+      {showTldr && <TldrModal onClose={() => setShowTldr(false)} title="NUT-24 TL;DR" />}
     </main>
   );
 }
