@@ -361,23 +361,23 @@ export function Nut24Landing() {
                   className="shadow-none"
                 >
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.08em] break-words">
+                    <CardTitle className="flex min-w-0 flex-wrap items-center gap-3 text-sm font-bold uppercase tracking-[0.08em]">
                       <span className="inline-flex size-8 items-center justify-center rounded-full border border-gray-600 bg-primary text-xs font-bold text-primary-foreground shrink-0">
                         {index + 1}
                       </span>
-                      <span className="break-words">{step.title}</span>
+                      <span className="min-w-0 break-words">{step.title}</span>
                     </CardTitle>
-                    <CardDescription>{step.detail}</CardDescription>
+                    <CardDescription className="min-w-0 break-words">{step.detail}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-4 font-mono text-sm leading-relaxed whitespace-pre-wrap break-words">
+                    <pre className="bg-foreground/5 max-w-full overflow-x-auto rounded-md border border-gray-300 p-4 font-mono text-sm leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere] break-all">
                       {step.packet}
                     </pre>
                   </CardContent>
                 </Card>
                 {/* Speech bubble tip after step 2 */}
                 {index === 1 && (
-                  <div className="dummies-speech-bubble ml-10 mt-4 text-sm">
+                  <div className="dummies-speech-bubble mt-4 max-w-full break-words text-sm [overflow-wrap:anywhere] sm:ml-10">
                     <strong>What is HTTP 402?</strong> It&apos;s a status code reserved for &quot;Payment Required&quot; &mdash; and NUT-24 finally gives it a real purpose!
                   </div>
                 )}
@@ -526,13 +526,13 @@ export function Nut24Landing() {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
                     <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Request log</p>
-                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                    <pre className="bg-foreground/5 min-h-28 max-w-full overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere] break-all">
                       {requestLog.length > 0 ? requestLog.join("\n\n") : "No requests sent yet"}
                     </pre>
                   </div>
                   <div className="space-y-2">
                     <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Response log</p>
-                    <pre className="bg-foreground/5 min-h-28 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                    <pre className="bg-foreground/5 min-h-28 max-w-full overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere] break-all">
                       {responseLog.join("\n")}
                     </pre>
                   </div>
@@ -540,7 +540,7 @@ export function Nut24Landing() {
 
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Server header (raw)</p>
-                  <pre className="bg-foreground/5 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                  <pre className="bg-foreground/5 max-w-full overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere] break-all">
                     {demoStep === 0
                       ? "Run step 1 to receive a response"
                       : demoStep === 1
@@ -551,7 +551,7 @@ export function Nut24Landing() {
 
                 <div className="space-y-2">
                   <p className="text-muted-foreground text-xs uppercase tracking-[0.12em]">Decoded on client</p>
-                  <pre className="bg-foreground/5 min-h-32 overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                  <pre className="bg-foreground/5 min-h-32 max-w-full overflow-x-auto rounded-md border border-gray-300 p-3 font-mono text-sm leading-relaxed whitespace-pre-wrap [overflow-wrap:anywhere] break-all">
                     {decodedRequest ? JSON.stringify(decodedRequest, null, 2) : "Run step 2 to decode X-Cashu"}
                   </pre>
                   {decodeError ? (
