@@ -14,6 +14,19 @@ export const metadata: Metadata = {
   title: "402 for Dummies | NUT-24 Landing",
   description:
     "A clean and technical guide to Cashu NUT-24 HTTP 402 payments, with flow diagrams and an interactive protocol demo.",
+  icons: {
+    icon: [
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      { url: "/favicon/android-chrome-192x192.png", sizes: "192x192", type: "image/png", rel: "icon" },
+      { url: "/favicon/android-chrome-512x512.png", sizes: "512x512", type: "image/png", rel: "icon" },
+    ],
+  },
   openGraph: {
     title: "402 for Dummies | NUT-24 Landing",
     description: "A clean and technical guide to Cashu NUT-24 HTTP 402 payments, with flow diagrams and an interactive protocol demo.",
@@ -36,6 +49,7 @@ export const metadata: Metadata = {
     description: "A clean and technical guide to Cashu NUT-24 HTTP 402 payments, with flow diagrams and an interactive protocol demo.",
     images: ["https://402fordummies.dev/og-image.jpg"],
   },
+  manifest: "/favicon/site.webmanifest",
 };
 
 export default function RootLayout({
